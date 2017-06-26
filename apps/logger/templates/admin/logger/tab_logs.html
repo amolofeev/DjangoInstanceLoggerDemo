@@ -1,0 +1,47 @@
+<script type="text/javascript">
+    function show_hide(obj_id){
+        $('div#pre-log-'+obj_id).toggleClass('show hide');
+        $('div#full-log-'+obj_id).toggleClass('show hide');
+    }
+</script>
+<div class="control-group form-row field-is_staff ">
+    <div>
+    <table class="table table-striped table-bordered table-hover table-condensed">
+        <thead>
+
+        </thead>
+        <tbody>
+            {% for log in logs %}
+                <tr class="{{ log.css_level }}">
+                    <td class="row1">{{ log.created_at|date:"d-m-Y H:i:s.u" }}</td>
+                    <td class="row1">{{ log.level }}</td>
+                    <td class="row1">{{ log.reason }}</td>
+                    <td class="row3">
+                        <div>
+                            {%  if log.filename %}
+                                {{ log.filename }}
+                                {% if log.lineno %}
+                                    [{{ log.lineno }}]
+                                {% endif %}
+                            {%  endif %}
+                        </div>
+                        <div {% if log.is_long %}
+                                id="pre-log-{{ log.id }}"
+                                class="show"
+                                onclick="show_hide('{{ log.id }}');"
+                            {% endif %}>
+                            <pre>{{ log.short }}</pre>
+                        </div>
+                        {% if log.is_long %}
+                            <div  id="full-log-{{ log.id }}" class="hide" onclick="show_hide('{{ log.id }}');">
+                                <pre>{{ log.message }}</pre>
+                            </div>
+                        {% endif %}
+                    </td>
+
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+</div>
