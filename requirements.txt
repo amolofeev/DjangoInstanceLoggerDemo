@@ -1,2 +1,4 @@
-django
+django==2.2.1
 django-suit
+
+git+https://github.com/amolofeev/DjangoInstanceLogger.git

@@ -1,2 +1,6 @@
 .idea/*
 *.py[co]
+build/
+dist/
+__pychache__
+*.egg-info/
